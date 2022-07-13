@@ -543,7 +543,10 @@ class ApplyLexiconToCorpusJob(Job):
                         lookup_dict[orth] = lemma.phon[0]
 
         if self.word_separation_orth is not None:
-            word_separation_phon = lookup_dict[self.word_separation_orth]
+            try:
+                word_separation_phon = lookup_dict[self.word_separation_orth]
+            except KeyError:
+                word_separation_phon = self.word_separation_orth
             print("using word separation symbol: %s" % word_separation_phon)
             separator = " %s " % word_separation_phon
         else:
